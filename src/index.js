@@ -34,4 +34,16 @@ form.onsubmit = async (event) => {
 }
 
 // Start by displaying user's weather
-displayUserWeather().catch(err => console.log(err));
+displayUserWeather().catch(err => {
+
+    // display paranaque's weather if we can't get user city weather
+    console.error(err);
+    console.log("attempting to display default city weather");
+
+    const weatherData = getWeatherDataForCity("Paranaque City");
+    weatherData.then(data => {
+        displayWeatherData(data)
+        removeLoadingScreen();
+    });
+
+});
