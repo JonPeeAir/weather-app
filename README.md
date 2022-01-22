@@ -1,7 +1,7 @@
 # Weather App
 
-This website gives you the current weather from any place you want
-
+This website gives you the current weather from any place you want  
 This is powered by the OpenWeather API
 
-Website link will be uploaded here soon
+Here is the link to the website  
+https://jonpeeair.github.io/weather-app/
