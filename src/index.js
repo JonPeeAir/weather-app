@@ -34,4 +34,4 @@ form.onsubmit = async (event) => {
 }
 
 // Start by displaying user's weather
-displayUserWeather().catch(alert);
+displayUserWeather().catch(err => console.log(err));
