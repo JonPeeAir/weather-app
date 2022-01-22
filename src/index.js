@@ -5,7 +5,7 @@ import { removeLoadingScreen, displayWeatherData } from "./modules/UI"
 
 async function getUserCity() {
     const apiKey = "5b9df320-7b37-11ec-82b5-6b2da08c1dde";
-    const response = await fetch(`https://api.freegeoip.app/json/?apikey=${apiKey}`, {mode: "cors"});
+    const response = await fetch(`http://api.freegeoip.app/json/?apikey=${apiKey}`, {mode: "cors"});
     const userCityData = await response.json();
     // console.log(userCityData);
 
@@ -34,4 +34,4 @@ form.onsubmit = async (event) => {
 }
 
 // Start by displaying user's weather
-displayUserWeather();
+displayUserWeather().catch(alert);
