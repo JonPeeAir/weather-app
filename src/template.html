@@ -8,6 +8,28 @@
 </head>
 <body>
     <h1>Weather App</h1>
+
+    <form autocomplete="off">
+        <input type="text" name="city-name" id="city-name" placeholder="Enter a city..." required>
+        <button type="submit">search</button>
+    </form>
+
+    <div class="weather-data" id="weather-data">
+
+        <div class="primary-details" id="primary-details">
+            <p class="city" id="city"></p>
+            <p class="temp"><span id="temp"></span>&deg;</p>
+            <p>feels like <span id="feels-like"></span>&deg;</p>
+        </div>
+
+        <div class="secondary-details" id="secondary-details">
+            <p>High: <span id="temp-high"></span>&deg;</p>
+            <p>Low: <span id="temp-low"></span>&deg;</p>
+            <p>Pressure: <span id="pressure"></span>hPa</p>
+            <p>Humidity: <span id="humidity"></span>%</p>
+        </div>
+
+    </div>
     
 </body>
 </html>
