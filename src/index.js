@@ -1,20 +1,10 @@
 import "./styles.css";
 
-import getWeatherDataForCity from "./modules/weather";
+import { getWeatherDataForCity, getWeatherDataForCoords } from "./modules/weather";
 import { removeLoadingScreen, displayWeatherData } from "./modules/UI"
 
-async function getUserCity() {
-    const apiKey = "5b9df320-7b37-11ec-82b5-6b2da08c1dde";
-    const response = await fetch(`http://api.freegeoip.app/json/?apikey=${apiKey}`, {mode: "cors"});
-    const userCityData = await response.json();
-    // console.log(userCityData);
-
-    return userCityData.city;
-}
-
-async function displayUserWeather() {
-    const userCity = await getUserCity();
-    const userWeatherData = await getWeatherDataForCity(userCity);
+async function displayUserWeather(lat, lon) {
+    const userWeatherData = await getWeatherDataForCoords(lat, lon);
     displayWeatherData(userWeatherData);
     removeLoadingScreen();
 }
@@ -34,16 +24,26 @@ form.onsubmit = async (event) => {
 }
 
 // Start by displaying user's weather
-displayUserWeather().catch(err => {
+const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+}
 
-    // display paranaque's weather if we can't get user city weather
-    console.error(err);
-    console.log("attempting to display default city weather");
+function success(pos) {
+    const {coords} = pos;
+    displayUserWeather(coords.latitude, coords.longitude);
+}
 
-    const weatherData = getWeatherDataForCity("Paranaque City");
+function error(err) {
+    // eslint-disable-next-line no-console
+    console.error(`${err}\nUser declined location permission\nAttempting to load Toronto's weather instead`);
+
+    const weatherData = getWeatherDataForCity("Toronto");
     weatherData.then(data => {
         displayWeatherData(data)
         removeLoadingScreen();
     });
+}
 
-});
+navigator.geolocation.getCurrentPosition(success, error, options);
